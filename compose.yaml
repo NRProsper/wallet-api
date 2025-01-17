@@ -28,3 +28,24 @@ services:
       - db
     env_file:
       - .env
+
+  app:
+    container_name: air_app
+    build:
+      context: .
+    restart: always
+    environment:
+      - DATABASE_URL=
+      - SPRING_DATASOURCE_USERNAME=
+      - SPRING_DATASOURCE_PASSWORD=
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_MAIL_HOST=
+      - SPRING_MAIL_PORT=
+      - SPRING_MAIL_USERNAME=${MAIL_USERNAME}
+      - SPRING_MAIL_PASSWORD=${MAIL_PASSWORD}
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH=true
+      - SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE=true
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db

@@ -24,7 +24,9 @@ jobs:
 
       # Build the Spring Boot API application
       - name: Build with Maven
-        run: ./mvnw clean package -DskipTests
+        run: |
+          chmod +x ./mvnw
+          ./mvnw clean package -DskipTests
 
       # Login to docker hub
       - name: Login to docker hub

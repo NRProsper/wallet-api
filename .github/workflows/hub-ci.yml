@@ -45,3 +45,16 @@ jobs:
             ${{ secrets.DOCKER_HUB_USERNAME }}/wallet-api:latest
             ${{ secrets.DOCKER_HUB_USERNAME }}/wallet-api:${{ github.sha }}
 
+      # Deploy to Render
+      - name: Deploy to Render
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.RENDER_KEY }}" \
+            -H "Accept: application/json" \
+            -H "Content-Type: application/json" \
+            -d '{
+                  "serviceId": "wallet-api-oi3v",
+                  "image": "${{ secrets.DOCKER_HUB_USERNAME }}/wallet-api:latest"
+                }' \
+            "https://api.render.com/v1/services/wallet-api-oi3v/deploys"
+

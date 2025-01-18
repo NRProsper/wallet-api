@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: wallet-api
+    env: docker
+    image: docker.io/nprosper/wallet-api:latest
+    envVars:
+      # Database Configuration
+      - key: DB_USER
+        value: ${{ secrets.DB_USER }}
+      - key: DB_PASSWORD
+        value: ${{ secrets.DB_PASSWORD }}
+      - key: DB
+        value: ${{ secrets.DB }}
+      - key: DATABASE_URL
+        value: ${{ secrets.DB_URL }}
+
+      # JWT Configuration
+      - key: JWT_SECRET_KEY
+        value: ${{ secrets.JWT_SECRET_KEY }}
+      - key: JWT_EXPIRATION
+        value: ${{ secrets.JWT_EXPIRATION }}
+
+      # Frontend URL
+      - key: FRONTEND_URL
+        value: ${{ secrets.FRONTEND_URL }}
+
+      # Email Configuration
+      - key: SPRING_MAIL_HOST
+        value: ${{ secrets.SPRING_MAIL_HOST }}
+      - key: SPRING_MAIL_PORT
+        value: ${{ secrets.SPRING_MAIL_PORT }}
+      - key: MAIL_USERNAME
+        value: ${{ secrets.MAIL_USERNAME }}
+      - key: MAIL_PASSWORD
+        value: ${{ secrets.MAIL_PASSWORD }}

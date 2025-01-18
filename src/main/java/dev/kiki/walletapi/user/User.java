@@ -1,5 +1,8 @@
 package dev.kiki.walletapi.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dev.kiki.walletapi.account.Account;
+import dev.kiki.walletapi.category.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +35,14 @@ public class User implements UserDetails {
     private String email;
 
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Category> categories;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Account> accounts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

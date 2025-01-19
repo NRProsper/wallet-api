@@ -17,6 +17,7 @@ public class CategoryService {
     public Category createCategory(User authenticatedUser, CategoryDto dto) {
         var category = new Category();
         category.setName(dto.name());
+        category.setEmoji(dto.emoji());
         category.setUser(authenticatedUser);
 
         return categoryRepository.save(category);

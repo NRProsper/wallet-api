@@ -49,10 +49,15 @@ public class AuthController {
 
         var authenticatedUser = authService.authenticateUser(loginDto);
         String accessToken = jwtTokenService.generateToken(authenticatedUser);
+
+        User user = userService.getAuthenticatedUser();
+        LoginResponse.SafeUser safeUser = LoginResponse.SafeUser.fromUser(user);
+
         var response = new LoginResponse(
                 "Logged successfully",
                 accessToken,
-                jwtTokenService.expirationTime()
+                jwtTokenService.expirationTime(),
+                safeUser
         );
 
         return new ResponseEntity<>(response, HttpStatus.OK);

@@ -19,6 +19,8 @@ public class Category {
 
     String name;
 
+    String emoji;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @JsonBackReference

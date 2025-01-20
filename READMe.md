@@ -7,7 +7,7 @@ The Budget Buddy Backend API is a robust and scalable Spring Boot application th
 ## Base URL
 
 The API is hosted at:  
-👉 [https://wallet-api-oi3v.onrender.com/api](https://wallet-api-oi3v.onrender.com/api)
+👉 [https://wallet-api-oi3v.onrender.com](https://wallet-api-oi3v.onrender.com)
 
 ---
 

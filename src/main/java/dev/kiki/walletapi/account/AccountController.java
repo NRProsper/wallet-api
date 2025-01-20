@@ -1,5 +1,6 @@
 package dev.kiki.walletapi.account;
 
+import dev.kiki.walletapi.account.dto.AccountStatistics;
 import dev.kiki.walletapi.account.dto.CreateAccountDto;
 import dev.kiki.walletapi.account.dto.ExpenseDto;
 import dev.kiki.walletapi.account.dto.TopupDto;
@@ -95,6 +96,15 @@ public class AccountController {
 
         return ResponseEntity.ok(Map.of("message", "Expense recorded successfully"));
 
+    }
+
+    @GetMapping("/{account_id}/statistics")
+    public ResponseEntity<AccountStatistics> getStatistics(
+            @PathVariable(name = "account_id") UUID accountId
+    ) throws BadRequestException {
+        var authenticatedUser = userService.getAuthenticatedUser();
+        AccountStatistics statistics = accountService.getAccountStatistics(authenticatedUser, accountId);
+        return ResponseEntity.ok(statistics);
     }
 
 }

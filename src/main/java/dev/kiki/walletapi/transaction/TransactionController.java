@@ -1,6 +1,9 @@
 package dev.kiki.walletapi.transaction;
 
 import dev.kiki.walletapi.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,12 +18,18 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/transactions")
+@Tag(name = "Transaction Management", description = "Endpoints for managing user transactions")
+@SecurityRequirement(name = "auth")
 public class TransactionController {
 
     private final TransactionService transactionService;
     private final UserService userService;
 
     @GetMapping("/{account_id}")
+    @Operation(
+            summary = "Get paginated transactions for an account",
+            description = "Retrieves a paginated list of transactions for a specific account, sorted by creation date in descending order."
+    )
     public ResponseEntity<Page<Transaction>> getAll(
             @PathVariable(name = "account_id")UUID accountId,
             @RequestParam(name = "page", defaultValue = "1") Integer page,
@@ -42,6 +51,10 @@ public class TransactionController {
     }
 
     @GetMapping("/all")
+    @Operation(
+            summary = "Get all transactions for the authenticated user",
+            description = "Retrieves a list of all transactions for the authenticated user."
+    )
     public ResponseEntity<List<Transaction>> getAllTransactionsForUser() {
         var authenticatedUser = userService.getAuthenticatedUser();
         var transactions = transactionService.getAllTransactionsForUser(authenticatedUser);

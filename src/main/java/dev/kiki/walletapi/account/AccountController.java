@@ -5,6 +5,9 @@ import dev.kiki.walletapi.account.dto.CreateAccountDto;
 import dev.kiki.walletapi.account.dto.ExpenseDto;
 import dev.kiki.walletapi.account.dto.TopupDto;
 import dev.kiki.walletapi.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
@@ -19,6 +22,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/accounts")
 @RequiredArgsConstructor
+@Tag(name = "Account Management", description = "Endpoints for managing user accounts")
+@SecurityRequirement(name = "auth")
 public class AccountController {
 
     private final AccountService accountService;
@@ -26,6 +31,10 @@ public class AccountController {
 
 
     @PostMapping
+    @Operation(
+            summary = "Create a new account",
+            description = "Creates a new account for the authenticated user."
+    )
     public ResponseEntity<Account> createOne(
             @Valid @RequestBody CreateAccountDto accountDto
             ) {
@@ -36,6 +45,10 @@ public class AccountController {
     }
 
     @DeleteMapping("/{account_id}")
+    @Operation(
+            summary = "Delete an account",
+            description = "Deletes an account by its ID for the authenticated user."
+    )
     public ResponseEntity<Map<String, String>> delete(
             @PathVariable(name = "account_id") UUID accountId
     ) throws BadRequestException {
@@ -51,6 +64,10 @@ public class AccountController {
     }
 
     @GetMapping
+    @Operation(
+            summary = "Get all accounts",
+            description = "Retrieves all accounts for the authenticated user."
+    )
     public ResponseEntity<List<Account>> getAll() {
         var authenticatedUser = userService.getAuthenticatedUser();
         List<Account> accounts = accountService.getUserAccounts(authenticatedUser);
@@ -59,6 +76,10 @@ public class AccountController {
     }
 
     @GetMapping("/{account_id}")
+    @Operation(
+            summary = "Get an account by ID",
+            description = "Retrieves an account by its ID for the authenticated user."
+    )
     public ResponseEntity<Account> getOne(
             @PathVariable(name = "account_id") UUID accountId
     ) {
@@ -70,6 +91,10 @@ public class AccountController {
     }
 
     @PostMapping("/{account_id}/top-up")
+    @Operation(
+            summary = "Top up an account",
+            description = "Adds funds to an account for the authenticated user."
+    )
     public ResponseEntity<Map<String, String>> top_up(
             @PathVariable(name = "account_id") UUID accountId,
             @Valid @RequestBody TopupDto dto
@@ -86,6 +111,10 @@ public class AccountController {
     }
 
     @PostMapping("/{account_id}/spend")
+    @Operation(
+            summary = "Top up an account",
+            description = "Adds funds to an account for the authenticated user."
+    )
     public ResponseEntity<Map<String, String>> spend(
             @PathVariable(name = "account_id") UUID accountId,
             @Valid @RequestBody ExpenseDto dto
@@ -99,6 +128,10 @@ public class AccountController {
     }
 
     @GetMapping("/{account_id}/statistics")
+    @Operation(
+            summary = "Get account statistics",
+            description = "Retrieves statistics for an account, such as total income, expenses, and balance."
+    )
     public ResponseEntity<AccountStatistics> getStatistics(
             @PathVariable(name = "account_id") UUID accountId
     ) throws BadRequestException {

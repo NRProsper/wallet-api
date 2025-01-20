@@ -4,9 +4,9 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   datasource:
-    url: jdbc:postgresql://dpg-cu62oh5svqrc738euasg-a.oregon-postgres.render.com:5432/wallet_dv0m
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: "jdbc:postgresql://dpg-cu62oh5svqrc738euasg-a.oregon-postgres.render.com:5432/wallet_dv0m"
+    username: "wallet_dv0m_user"
+    password: "gDHpKceQTcKP1DQw6HjsQMBUyiRMN0SB"
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

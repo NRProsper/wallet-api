@@ -28,9 +28,13 @@ public class SecurityConfig {
                 .cors(customizer ->
                         customizer.configurationSource(request -> {
                             var corsConfig = new CorsConfiguration();
-                            corsConfig.setAllowedOrigins(List.of("*"));
-                            corsConfig.setAllowedMethods(List.of("*"));
+                            corsConfig.setAllowedOrigins(List.of(
+                                    "https://budget-buddy-azure-eight.vercel.app",
+                                    "http://localhost:3000"
+                            ));
+                            corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                             corsConfig.setAllowedHeaders(List.of("*"));
+                            corsConfig.setAllowCredentials(true);
                             return corsConfig;
                         })
                 )
@@ -39,7 +43,17 @@ public class SecurityConfig {
                         customizer -> customizer
                                 .requestMatchers(
                                         "/api/auth/**",
-                                        "/"
+                                        "/",
+                                        "/v2/api-docs",
+                                        "/v3/api-docs",
+                                        "/v3/api-docs/**",
+                                        "/swagger-resources",
+                                        "/swagger-resources/**",
+                                        "/configuration/ui",
+                                        "/configuration/security",
+                                        "/swagger-ui/**",
+                                        "/webjars/**",
+                                        "/swagger-ui.html"
                                 ).permitAll()
                                 .anyRequest()
                                 .authenticated()

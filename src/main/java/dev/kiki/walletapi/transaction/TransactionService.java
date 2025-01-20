@@ -1,5 +1,6 @@
 package dev.kiki.walletapi.transaction;
 
+import dev.kiki.walletapi.account.Account;
 import dev.kiki.walletapi.account.AccountRepository;
 import dev.kiki.walletapi.exception.ResourceNotFoundException;
 import dev.kiki.walletapi.user.User;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 import java.util.UUID;
 
@@ -29,6 +31,12 @@ public class TransactionService {
 
         return transactionRepository.findByAccount(account, pageable);
 
+    }
+
+
+    public List<Transaction> getAllTransactionsForUser(User authenticatedUser) {
+        List<Account> userAccounts = accountRepository.findAllByUserId(authenticatedUser.getId());
+        return transactionRepository.findByAccountIn(userAccounts);
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import java.util.UUID;
 
@@ -38,6 +39,13 @@ public class TransactionController {
         var transactions = transactionService.getTransactions(pageable, accountId, authenticatedUser);
 
         return  ResponseEntity.ok(transactions);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Transaction>> getAllTransactionsForUser() {
+        var authenticatedUser = userService.getAuthenticatedUser();
+        var transactions = transactionService.getAllTransactionsForUser(authenticatedUser);
+        return ResponseEntity.ok(transactions);
     }
 
 }

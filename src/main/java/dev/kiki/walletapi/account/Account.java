@@ -25,7 +25,7 @@ public class Account {
     private UUID id;
 
 
-    @Column(unique = true)
+    @Column
     private String type; // This will store types like, Bank Account, Cash and Mobile money
 
     @Column(precision = 19, scale = 2, columnDefinition = "DECIMAL(19, 2) DEFAULT 0.00")

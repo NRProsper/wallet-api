@@ -4,7 +4,7 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
   datasource:
-    url: ${DB_URL}
+    url: jdbc:postgresql://dpg-cu62oh5svqrc738euasg-a.oregon-postgres.render.com:5432/wallet_dv0m
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -30,8 +30,8 @@ spring:
 
 # JWT Configuration
 jwt:
-  secret-key: ${JWT_SECRET_KEY}
-  expiration: ${JWT_EXPIRATION}
+  secret-key: d98c63bf732a3d4cad01e608be321cb40c37bb825de02c9e76edd7aef18553d3
+  expiration: 86400000
 
 # Frontend URL
 frontend:

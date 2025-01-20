@@ -25,11 +25,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(customizer -> customizer
-                        .configurationSource(request -> {
+                .cors(customizer ->
+                        customizer.configurationSource(request -> {
                             var corsConfig = new CorsConfiguration();
-//                            corsConfig.setAllowedHeaders(List.of("*"));
                             corsConfig.setAllowedOrigins(List.of("*"));
+                            corsConfig.setAllowedMethods(List.of("*"));
+                            corsConfig.setAllowedHeaders(List.of("*"));
                             return corsConfig;
                         })
                 )

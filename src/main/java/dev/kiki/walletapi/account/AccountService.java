@@ -1,5 +1,6 @@
 package dev.kiki.walletapi.account;
 
+import dev.kiki.walletapi.account.dto.AccountStatistics;
 import dev.kiki.walletapi.account.dto.CreateAccountDto;
 import dev.kiki.walletapi.account.dto.ExpenseDto;
 import dev.kiki.walletapi.account.dto.TopupDto;
@@ -119,6 +120,14 @@ public class AccountService {
 
         transactionRepository.save(transaction);
 
+    }
+
+    public AccountStatistics getAccountStatistics(User user, UUID accountId) throws BadRequestException {
+        Account account = accountRepository.findByUserAndId(user, accountId)
+                .orElseThrow(() -> new BadRequestException("Account not found or does not belong to the user"));
+
+
+        return accountRepository.getAccountStatistics(accountId);
     }
 
 
